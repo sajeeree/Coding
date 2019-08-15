@@ -3,20 +3,20 @@
 #include <stdint.h>
 #include <time.h>
 
+#ifndef CPM_2_0
+volatile uint32_t* const portd_moder   = (uint32_t*) 0x40020C20;
+volatile uint32_t* const portd_odr     = (uint32_t*) 0x40020C24;
+#else
 volatile uint32_t* const portd_moder   = (uint32_t*) 0x40020C00;
 volatile uint32_t* const portd_odr     = (uint32_t*) 0x40020C14;
+#endif
+volatile uint32_t* const rcc_ahb1enr   = (uint32_t*) 0x40023830;
 
 void sleep(uint32_t ms); // use systick to busy-wait
 
 int main(void)
 {
-
-  volatile uint16_t a;
-  uint16_t volatile b;
-
-  volatile uint16_t *c;
-  uint16_t volatile *d;
-
+  *rcc_ahb1enr |= (1 << 3);     // enable PortD's clock
   uint32_t moder = *portd_moder;
   moder |= (1 << 16);
   moder &= ~(1 << 17);
