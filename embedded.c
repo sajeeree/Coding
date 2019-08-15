@@ -11,12 +11,6 @@ void sleep(uint32_t ms); // use systick to busy-wait
 int main(void)
 {
 
-  volatile uint16_t a;
-  uint16_t volatile b;
-
-  volatile uint16_t *c;
-  uint16_t volatile *d;
-
   uint32_t moder = *portd_moder;
   moder |= (1 << 16);
   moder &= ~(1 << 17);
