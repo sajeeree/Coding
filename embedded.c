@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include <time.h>
 
-volatile uint32_t* const portd_moder   = (uint32_t*) 0x40020C20;
-volatile uint32_t* const portd_odr     = (uint32_t*) 0x40020C24;
+volatile uint32_t* const portd_moder   = (uint32_t*) 0x40020C00;
+volatile uint32_t* const portd_odr     = (uint32_t*) 0x40020C14;
 
 #ifndef CPM_2_0
 volatile uint32_t* const rcc_ahb1enr   = (uint32_t*) 0x40023830;
