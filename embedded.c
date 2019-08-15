@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include <time.h>
 
-volatile uint32_t* const portd_moder   = (uint32_t*) 0x40020C00;
-volatile uint32_t* const portd_odr     = (uint32_t*) 0x40020C14;
+#define PORTD_MODER   (*((volatile uint32_t*) 0x40020C00))
+#define PORTD_ODR     (*((volatile uint32_t*) 0x40020C14))
 
 void sleep(uint32_t ms); // use systick to busy-wait
 
@@ -17,15 +17,15 @@ int main(void)
   volatile uint16_t *c;
   uint16_t volatile *d;
 
-  uint32_t moder = *portd_moder;
+  uint32_t moder = PORTD_MODER;
   moder |= (1 << 16);
   moder &= ~(1 << 17);
-  *portd_moder = moder;
+  PORTD_MODER = moder;
 
   while(1) {
-    *portd_odr |= (1 << 8);   // led-on
+    PORTD_ODR |= (1 << 8);   // led-on
     sleep(500);
-    *portd_odr &= ~(1 << 8);  // led-off
+    PORTD_ODR &= ~(1 << 8);  // led-off
     sleep(500);
   }
 }
